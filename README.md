@@ -1,4 +1,4 @@
-Cache Buster for Angular JS Resources.
+Cache Buster for Angular JS $http and $resource.
 Especially useful with Internet Explorer (IE8, IE9)
 
 # install
