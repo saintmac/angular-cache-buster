@@ -51,6 +51,7 @@ describe('ngCacheBuster', function () {
       module('ngCacheBuster');
       module(function(httpRequestInterceptorCacheBusterProvider){
         httpRequestInterceptorCacheBusterProvider.setViewsDirectoryName('partial');
+        httpRequestInterceptorCacheBusterProvider.setLogRequests(true);
       });
     });
 
