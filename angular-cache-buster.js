@@ -5,7 +5,7 @@ angular.module('ngCacheBuster', [])
   .factory('httpRequestInterceptorCacheBuster', function($q, $log) {
     return {
       'request': function(config) {
-        if (config.url.indexOf("views/") === -1) {
+        if (config.url.indexOf("view") === -1) {
           var d = new Date();
           config.url = config.url + '?cacheBuster=' + d.getTime();
         }
