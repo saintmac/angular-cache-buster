@@ -3,11 +3,8 @@
   "version": "0.3.0",
   "description": "Cache Buster for AngularJS $http (and $resource). Especially useful with Internet Explorer (IE8, IE9)",
   "main": "angular-cache-buster.js",
-  "directories": {
-    "test": "mocha --reporter Spec"
-  },
   "scripts": {
-    "test": "mocha --reporter Spec"
+    "test": "karma start"
   },
   "repository": {
     "type": "git",
