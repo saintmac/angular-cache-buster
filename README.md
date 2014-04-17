@@ -7,7 +7,7 @@ Especially useful with Internet Explorer (IE8, IE9)
 
 In your app module definition, add `ngCacheBuster` as a dependency
 
-    angular.module('myApp', ['ngCacheBuster]);
+    angular.module('myApp', ['ngCacheBuster']);
 
 # configure
 
