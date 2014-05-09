@@ -24,4 +24,7 @@ For instance, if your views are in a 'partials' folder, you can configure Angula
 
 # use
 
-That's it! All your resource calls will have a cache buster added, except for urls containing 'views'
+That's it! All your resource calls will have a cache buster added, except for urls containing 'views
+
+# test
+`karma start` to launch the tests
