@@ -12,16 +12,23 @@ In your app module definition, add `ngCacheBuster` as a dependency
 # configure
 
 AngularCacheBuster adds a cache buster to any $http requests (and hence to $resource requests).
-Since you probably want to maintain browser caching for your views, by default AngularCacheBuster doesn't add a cache buster to requests to URLs that contain 'view'.
+Since you probably want to maintain browser caching for your views, partials or other routes, you can supply a list of regexes that will be matched against all URL's. By default the supplied matchlist is a whitelist (i.e. busting everything not matching an entry in the list) but you can also set it to be a blacklist, (i.e. busting everything except the matching entries)
 
-If your views are not in a 'view' directory you can change that behavior by configuring AngularCacheBuster provider.
-For instance, if your views are in a 'partials' folder, you can configure AngularCacheBuster this way:
+For instance, if you want to bust everything except views in a 'partials' folder and images in a 'images' folder , you can configure AngularCacheBuster this way:
 
     angular.module('yourApp', ['ngCacheBuster'])
       .config(function(httpRequestInterceptorCacheBusterProvider){
-        httpRequestInterceptorCacheBusterProvider.setViewsDirectoryName('partials');
+        httpRequestInterceptorCacheBusterProvider.setMatchlist([/.*partials.*/,/.*images.*/]);
+      });
+
+If instead you want to allow everything to be cached, except your "/api/users" and "api/orders" (assuming they are the only things that change frequently), you can supply a matchlist as before, but pass in a second boolean argument "blacklist" set to true as well:
+
+
+    angular.module('yourApp', ['ngCacheBuster'])
+      .config(function(httpRequestInterceptorCacheBusterProvider){
+        httpRequestInterceptorCacheBusterProvider.setMatchlist([/.*orders.*/,/.*users.*/],true);
       });
 
 # use
 
-That's it! All your resource calls will have a cache buster added, except for urls containing 'views'
+That's it! All your resource calls will have a cache buster added for anything not in the whitelist, or if you specified "blacklist", for everything matching the blacklist,
