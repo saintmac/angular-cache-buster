@@ -4,7 +4,7 @@ angular.module('ngCacheBuster', [])
   })
     .provider('httpRequestInterceptorCacheBuster', function() {
 	
-	this.matchlist = [/.*partials.*/, /.*template.*/ ];
+	this.matchlist = [/.*partials.*/, /.*views.*/ ];
 	this.logRequests = false;
 	
 	//Default to whitelist (i.e. block all except matches)
@@ -16,16 +16,18 @@ angular.module('ngCacheBuster', [])
 	    this.matchlist = list;
 	};
 	
+
 	this.setLogRequests = function(logRequests) {
 	    this.logRequests = logRequests;
-	    if(logRequests)
-		$log.info("Blacklist matching url's?",this.black);
+	    /*if(logRequests && $log != 'undefined')
+		$log.info("Blacklist matching url's?",this.black);*/
 	};
 	
 	this.$get = function($q, $log) {
 	    var matchlist = this.matchlist;
 	    var logRequests = this.logRequests;
 	    var black = this.black;
+	    $log.log("Blacklist? ",black);
 	    return {
 		'request': function(config) {
 		    //Blacklist by default, match with whitelist
@@ -36,6 +38,7 @@ angular.module('ngCacheBuster', [])
 			    busted=black; break;
 			}
 		    }
+		    
 		    //Bust if the URL was on blacklist or not on whitelist
 		    if (busted) {
 			var d = new Date();
