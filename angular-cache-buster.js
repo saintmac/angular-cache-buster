@@ -19,8 +19,6 @@ angular.module('ngCacheBuster', [])
 
 	this.setLogRequests = function(logRequests) {
 	    this.logRequests = logRequests;
-	    /*if(logRequests && $log != 'undefined')
-		$log.info("Blacklist matching url's?",this.black);*/
 	};
 	
 	this.$get = function($q, $log) {
