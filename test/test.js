@@ -154,6 +154,19 @@ describe('ngCacheBuster', function () {
       });
     });
 
+      //Blacklist, with existing query params
+    describe('with an api/orders request with existing query-string parameter', function() {
+      it('should add a cache buster, but not break existing params', function() {
+        var req = '/api/orders/654645?orderid=115';
+        var regex_friendly_req = req.replace(/\//g, '\\/').replace(/\?/g,'\\?')
+        var expected = new RegExp(regex_friendly_req + '&cacheBuster=[0-9]+')
+        $httpBackend.expectGET(expected).respond(200);
+        $http.get(req);
+        $httpBackend.flush();
+      });
+    });
+
+
       //Blacklist, partials
     describe('with a partials request', function() {
       it('should not add a cache buster', function() {
@@ -173,5 +186,7 @@ describe('ngCacheBuster', function () {
         $httpBackend.flush();
       });
     });
+      
+      
   });
 });
