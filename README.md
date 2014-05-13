@@ -32,3 +32,6 @@ If instead you want to allow everything to be cached, except your "/api/users" a
 # use
 
 That's it! All your resource calls will have a cache buster added for anything not in the whitelist, or if you specified "blacklist", for everything matching the blacklist,
+
+# test
+`karma start` to launch the tests
