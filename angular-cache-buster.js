@@ -25,7 +25,9 @@ angular.module('ngCacheBuster', [])
 	    var matchlist = this.matchlist;
 	    var logRequests = this.logRequests;
 	    var black = this.black;
-	    $log.log("Blacklist? ",black);
+        if (logRequests) {
+            $log.log("Blacklist? ",black);
+        }
 	    return {
 		'request': function(config) {
 		    //Blacklist by default, match with whitelist
