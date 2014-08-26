@@ -42,6 +42,7 @@ angular.module('ngCacheBuster', [])
 		    //Bust if the URL was on blacklist or not on whitelist
 		    if (busted) {
 			var d = new Date();
+			config.url = config.url.replace(/[?|&]cacheBuster=\d+/,'');
 			//Some url's allready have '?' attached
 			config.url+=config.url.indexOf('?') === -1 ? '?' : '&'
 			config.url += 'cacheBuster=' + d.getTime();
