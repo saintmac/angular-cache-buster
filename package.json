@@ -1,6 +1,6 @@
 {
   "name": "angular-cache-buster",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "Cache Buster for AngularJS $http (and $resource). Especially useful with Internet Explorer (IE8, IE9)",
   "main": "angular-cache-buster.js",
   "scripts": {
