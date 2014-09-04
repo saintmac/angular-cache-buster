@@ -1,7 +1,7 @@
 angular.module('ngCacheBuster', [])
-  .config(function($httpProvider) {
+  .config(['$httpProvider', function($httpProvider) {
     return $httpProvider.interceptors.push('httpRequestInterceptorCacheBuster');
-  })
+  }])
     .provider('httpRequestInterceptorCacheBuster', function() {
 	
 	this.matchlist = [/.*partials.*/, /.*views.*/ ];
