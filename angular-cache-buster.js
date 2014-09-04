@@ -1,7 +1,7 @@
 angular.module('ngCacheBuster', [])
-  .config(function($httpProvider) {
+  .config(['$httpProvider', function($httpProvider) {
     return $httpProvider.interceptors.push('httpRequestInterceptorCacheBuster');
-  })
+  }])
     .provider('httpRequestInterceptorCacheBuster', function() {
 	
 	this.matchlist = [/.*partials.*/, /.*views.*/ ];
@@ -21,7 +21,7 @@ angular.module('ngCacheBuster', [])
 	    this.logRequests = logRequests;
 	};
 	
-	this.$get = function($q, $log) {
+	this.$get = ['$q', '$log', function($q, $log) {
 	    var matchlist = this.matchlist;
 	    var logRequests = this.logRequests;
 	    var black = this.black;
@@ -56,7 +56,7 @@ angular.module('ngCacheBuster', [])
 		    return config || $q.when(config);
 		}
 	    }
-	};
+	}];
     });
 
 
