@@ -22,7 +22,10 @@
     "ie9"
   ],
   "author": "saintmac <martin.saintmac@gmail.com> (Martin Saint-Macary, http://vyte.in)",
-  "contributors": ["Alfred Bratterud <alfred.bratterud@hioa.no>"],
+  "contributors": [
+    "Alfred Bratterud <alfred.bratterud@hioa.no>",
+    "Donovan Mikrot <donovan@donovan.mn>"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/saintmac/angular-cache-buster/issues"
@@ -38,6 +41,7 @@
     "requirejs": "~2.1.11",
     "karma-requirejs": "~0.2.1",
     "karma-phantomjs-launcher": "~0.1.2",
-    "karma": "~0.12.15"
+    "karma": "~0.12.15",
+    "karma-junit-reporter": "~0.3.3"
   }
 }
