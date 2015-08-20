@@ -6,7 +6,7 @@ describe('ngCacheBuster', function () {
 
     beforeEach(inject(function($injector) {
       $httpBackend = $injector.get('$httpBackend');
-      $http = $injector.get('$http'); 
+      $http = $injector.get('$http');
     }));
 
     afterEach(function() {
@@ -62,7 +62,7 @@ describe('ngCacheBuster', function () {
       $httpBackend.verifyNoOutstandingExpectation();
       $httpBackend.verifyNoOutstandingRequest();
     });
-      
+
       //Whitelist, views
     describe('with a views request', function() {
       it('should add a cache buster', function() {
@@ -176,7 +176,7 @@ describe('ngCacheBuster', function () {
         $httpBackend.flush();
       });
     });
-      
+
       //Blacklist, other
     describe('with any other request', function() {
       it('should not add a cache buster', function() {
@@ -186,7 +186,90 @@ describe('ngCacheBuster', function () {
         $httpBackend.flush();
       });
     });
-      
-      
+  });
+
+    //Match function
+  describe('configuring the provider with a match function', function() {
+    beforeEach(function() {
+      var matchlist = [/.*users.*/, /.*orders.*/];
+      module('ngCacheBuster');
+      module(function(httpRequestInterceptorCacheBusterProvider){
+        httpRequestInterceptorCacheBusterProvider.setMatchFunction(function (url) {
+          for(var i = 0; i < matchlist.length; i++){
+            if (url.match(matchlist[i])) {
+              return true;
+            }
+          }
+          return false;
+        }, true);
+        httpRequestInterceptorCacheBusterProvider.setLogRequests(true);
+      });
+    });
+
+    beforeEach(inject(function($injector) {
+      $httpBackend = $injector.get('$httpBackend');
+      $http = $injector.get('$http');
+    }));
+
+    afterEach(function() {
+      $httpBackend.verifyNoOutstandingExpectation();
+      $httpBackend.verifyNoOutstandingRequest();
+    });
+
+      //Match function, users
+    describe('with an api/users request', function() {
+      it('should add a cache buster', function() {
+        var req = '/api/users/654645';
+        var regex_friendly_req = req.replace(/\//g, '\\/');
+        var expected = new RegExp(regex_friendly_req + '\\?cacheBuster=[0-9]+')
+        $httpBackend.expectGET(expected).respond(200);
+        $http.get(req);
+        $httpBackend.flush();
+      });
+    });
+
+      //Match function, api/orders
+    describe('with an api/orders request', function() {
+      it('should add a cache buster', function() {
+        var req = '/api/orders/654645';
+        var regex_friendly_req = req.replace(/\//g, '\\/');
+        var expected = new RegExp(regex_friendly_req + '\\?cacheBuster=[0-9]+')
+        $httpBackend.expectGET(expected).respond(200);
+        $http.get(req);
+        $httpBackend.flush();
+      });
+    });
+
+      //Match function, with existing query params
+    describe('with an api/orders request with existing query-string parameter', function() {
+      it('should add a cache buster, but not break existing params', function() {
+        var req = '/api/orders/654645?orderid=115';
+        var regex_friendly_req = req.replace(/\//g, '\\/').replace(/\?/g,'\\?')
+        var expected = new RegExp(regex_friendly_req + '&cacheBuster=[0-9]+')
+        $httpBackend.expectGET(expected).respond(200);
+        $http.get(req);
+        $httpBackend.flush();
+      });
+    });
+
+      //Match function, partials
+    describe('with a partials request', function() {
+      it('should not add a cache buster', function() {
+        var req = '/bower_components/mymodule/partials/home.html';
+        $httpBackend.expectGET(req).respond(200);
+        $http.get(req);
+        $httpBackend.flush();
+      });
+    });
+
+      //Match function, other
+    describe('with any other request', function() {
+      it('should not add a cache buster', function() {
+        var req = '/task/1234';
+        $httpBackend.expectGET(req).respond(200);
+        $http.get(req);
+        $httpBackend.flush();
+      });
+    });
   });
 });
