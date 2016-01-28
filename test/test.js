@@ -43,6 +43,36 @@ describe('ngCacheBuster', function () {
       });
     });
   });
+  
+  
+  //activate / deactivate
+  describe('configuring the provider to not be active', function() {
+      beforeEach(function() {
+        module('ngCacheBuster');
+        module(function(httpRequestInterceptorCacheBusterProvider){
+          httpRequestInterceptorCacheBusterProvider.setActive(false);
+        });
+      });
+	  
+      beforeEach(inject(function($injector) {
+        $httpBackend = $injector.get('$httpBackend');
+        $http = $injector.get('$http');
+      }));
+
+      afterEach(function() {
+        $httpBackend.verifyNoOutstandingExpectation();
+        $httpBackend.verifyNoOutstandingRequest();
+      });
+	  
+	  it('should deactivate', function() {
+          var req = '/task/1234';
+          var regex_friendly_req = req.replace(/\//g, '\\/');
+          $httpBackend.expectGET(req).respond(200);
+          $http.get(req);
+          $httpBackend.flush();	  	
+	  });
+  });
+  
 
   describe('configuring the provider with a whitelist', function() {
     beforeEach(function() {
@@ -186,7 +216,5 @@ describe('ngCacheBuster', function () {
         $httpBackend.flush();
       });
     });
-      
-      
   });
 });

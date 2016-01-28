@@ -6,6 +6,7 @@ angular.module('ngCacheBuster', [])
 	
 	this.matchlist = [/.*partials.*/, /.*views.*/ ];
 	this.logRequests = false;
+	this.isActive = true;	
 	
 	//Default to whitelist (i.e. block all except matches)
 	this.black=false; 
@@ -14,6 +15,10 @@ angular.module('ngCacheBuster', [])
 	this.setMatchlist = function(list,black) {
 	    this.black = typeof black != 'undefined' ? black : false
 	    this.matchlist = list;
+	};
+	
+	this.setActive = function(isActive) {
+		this.isActive = isActive;
 	};
 	
 
@@ -25,11 +30,15 @@ angular.module('ngCacheBuster', [])
 	    var matchlist = this.matchlist;
 	    var logRequests = this.logRequests;
 	    var black = this.black;
+		var isActive = this.isActive;
         if (logRequests) {
             $log.log("Blacklist? ",black);
         }
 	    return {
 		'request': function(config) {
+			if(!isActive){
+				return config;
+			}
 		    //Blacklist by default, match with whitelist
 		    var busted= !black; 
 		    
