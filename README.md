@@ -1,9 +1,11 @@
 Cache Buster for Angular JS $http and $resource.
 Especially useful with Internet Explorer (IE8, IE9)
 
+This repository is forked from 
+
 # install
 
-    bower install angular-cache-buster --save
+    bower install 'git://github.com/j-combee/angular-cache-buster.git#0.5.0'
 
 In your app module definition, add `ngCacheBuster` as a dependency
 
@@ -28,6 +30,17 @@ If instead you want to allow everything to be cached, except your "/api/users" a
       .config(function(httpRequestInterceptorCacheBusterProvider){
         httpRequestInterceptorCacheBusterProvider.setMatchlist([/.*orders.*/,/.*users.*/],true);
       });
+
+If you have a personal key that you want to append on the url you can set that key like this.
+
+
+    angular.module('yourApp', ['ngCacheBuster'])
+      .config(function(httpRequestInterceptorCacheBusterProvider){
+        httpRequestInterceptorCacheBusterProvider.setMatchlist([/.*orders.*/,/.*users.*/],true).setCustomKey('YourOwnKey');
+      });
+
+This is used for versioning.
+
 
 # use
 
