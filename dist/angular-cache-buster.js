@@ -18,7 +18,7 @@
 
             //Select blacklist or whitelist, default to whitelist
             this.setMatchlist = function (list, black) {
-                this.black = typeof black != 'undefined' ? black : false
+                this.black = typeof black != 'undefined' ? black : false;
                 this.matchlist = list;
             };
 
@@ -60,18 +60,22 @@
                             }
                             config.url = config.url.replace(/[?|&]cacheBuster=\d+/, '');
                             //Some url's allready have '?' attached
-                            config.url += config.url.indexOf('?') === -1 ? '?' : '&'
+                            config.url += config.url.indexOf('?') === -1 ? '?' : '&';
                             config.url += 'cacheBuster=' + key;
                         }
 
                         if (logRequests) {
-                            var log = 'request.url =' + config.url
-                            busted ? $log.warn(log) : $log.info(log)
+                            var log = 'request.url =' + config.url;
+                            if (busted) {
+                                $log.warn(log);
+                            } else {
+                                $log.info(log);
+                            }
                         }
 
                         return config || $q.when(config);
                     }
-                }
+                };
             }];
         });
 

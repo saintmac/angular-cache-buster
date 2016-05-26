@@ -9,7 +9,7 @@ Add this to your bower.json file.
 
     {
       "dependencies": {
-        "angular-cache-buster": "https://github.com/j-combee/angular-cache-buster.git#0.5.2"
+        "angular-cache-buster": "https://github.com/j-combee/angular-cache-buster.git#0.5.3"
       }
     }
 
@@ -26,25 +26,25 @@ Since you probably want to maintain browser caching for your views, partials or 
 For instance, if you want to bust everything except views in a 'partials' folder and images in a 'images' folder , you can configure AngularCacheBuster this way:
 
     angular.module('yourApp', ['ngCacheBuster'])
-      .config(function(httpRequestInterceptorCacheBusterProvider){
+      .config(['httpRequestInterceptorCacheBusterProvider', function(httpRequestInterceptorCacheBusterProvider){
         httpRequestInterceptorCacheBusterProvider.setMatchlist([/.*partials.*/,/.*images.*/]);
-      });
+      }]);
 
 If instead you want to allow everything to be cached, except your "/api/users" and "api/orders" (assuming they are the only things that change frequently), you can supply a matchlist as before, but pass in a second boolean argument "blacklist" set to true as well:
 
 
     angular.module('yourApp', ['ngCacheBuster'])
-      .config(function(httpRequestInterceptorCacheBusterProvider){
+      .config(['httpRequestInterceptorCacheBusterProvider', function(httpRequestInterceptorCacheBusterProvider){
         httpRequestInterceptorCacheBusterProvider.setMatchlist([/.*orders.*/,/.*users.*/],true);
-      });
+      }]);
 
 If you have a personal key that you want to append on the url you can set that key like this.
 
 
     angular.module('yourApp', ['ngCacheBuster'])
-      .config(function(httpRequestInterceptorCacheBusterProvider){
+      .config(['httpRequestInterceptorCacheBusterProvider', function(httpRequestInterceptorCacheBusterProvider){
         httpRequestInterceptorCacheBusterProvider.setMatchlist([/.*orders.*/,/.*users.*/],true).setCustomKey('YourOwnKey');
-      });
+      }]);
 
 This is used for versioning.
 
