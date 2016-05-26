@@ -9,7 +9,7 @@ Add this to your bower.json file.
 
     {
       "dependencies": {
-        "angular-cache-buster": "https://github.com/j-combee/angular-cache-buster.git#0.5.2"
+        "angular-cache-buster": "https://github.com/j-combee/angular-cache-buster.git#0.5.3"
       }
     }
 
