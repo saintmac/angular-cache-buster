@@ -5,7 +5,14 @@ This repository is forked from
 
 # install
 
-    bower install 'git://github.com/j-combee/angular-cache-buster.git#0.5.1'
+Add this to your bower.json file.
+
+    {
+      "dependencies": {
+        "angular-cache-buster": "https://github.com/j-combee/angular-cache-buster.git#0.5.2"
+      }
+    }
+
 
 In your app module definition, add `ngCacheBuster` as a dependency
 
