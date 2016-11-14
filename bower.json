@@ -1,6 +1,6 @@
 {
   "name": "angular-cache-buster",
-  "version": "0.4.3",
+  "version": "0.5.3",
   "homepage": "https://github.com/saintmac/angular-cache-buster",
   "authors": [
     "saintmac <martin.saintmac@gmail.com>"
@@ -22,7 +22,10 @@
     "node_modules",
     "bower_components",
     "test",
-    "tests"
+    "tests",
+    "gulpfile.js",
+    "karma.conf.js",
+    "package.json"
   ],
   "devDependencies": {
     "angular": "~1.2.13",
