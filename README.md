@@ -29,6 +29,15 @@ If instead you want to allow everything to be cached, except your "/api/users" a
         httpRequestInterceptorCacheBusterProvider.setMatchlist([/.*orders.*/,/.*users.*/],true);
       });
 
+If you need custom logic instead of regular expression matching, you can supply a match function instead of a matchlist. The second boolean argument "blacklist" operates the same. The match function is called with a single url argument. Return a truthy value if the url matches:
+
+    angular.module('yourApp', ['ngCacheBuster'])
+      .config(function(httpRequestInterceptorCacheBusterProvider){
+        httpRequestInterceptorCacheBusterProvider.setMatchFunction(function(url) {
+          return url.length % 2;
+        },true);
+      });
+
 # use
 
 That's it! All your resource calls will have a cache buster added for anything not in the whitelist, or if you specified "blacklist", for everything matching the blacklist,
